@@ -20,11 +20,36 @@ interface SeriesProps {
   seriesFiles: Record<string, () => Promise<string>>;
 }
 
+const isFile = (name: string) => /\.(pdf|xlsx|png)$/.test(name);
+
 export const SeriesItem: React.FC<SeriesProps> = ({
   seriesName,
   seriesFiles,
 }) => {
-  console.log(seriesFiles);
+  const fileKey = Object.keys(seriesFiles).find((key) =>
+    key.includes(seriesName)
+  );
+  if (fileKey && isFile(seriesName)) {
+    const fileFunction = seriesFiles[fileKey];
+    return (
+      <List>
+        <ListItem key={seriesName}>
+          <Link
+            href="#"
+            isExternal
+            onClick={async (e) => {
+              e.preventDefault();
+              const resolvedUrl = await fileFunction();
+              window.open(resolvedUrl, "_blank");
+            }}
+          >
+            {seriesName.split("/").pop()}
+          </Link>
+        </ListItem>
+      </List>
+    );
+  }
+
   return (
     <AccordionItem key={seriesName}>
       <h2>
@@ -37,14 +62,14 @@ export const SeriesItem: React.FC<SeriesProps> = ({
       </h2>
       <AccordionPanel pb={4}>
         <List spacing={2}>
-          {Object.entries(seriesFiles).map(([key, url]) => (
+          {Object.entries(seriesFiles).map(([key, fileFunction]) => (
             <ListItem key={key}>
               <Link
                 href="#"
                 isExternal
                 onClick={async (e) => {
                   e.preventDefault();
-                  const resolvedUrl = await url();
+                  const resolvedUrl = await fileFunction();
                   window.open(resolvedUrl, "_blank");
                 }}
               >

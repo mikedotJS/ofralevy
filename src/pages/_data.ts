@@ -4,7 +4,7 @@ export const angloAmericanSagasFiles = import.meta.glob(
       query: "?url",
       import: "default",
     }
-  );
+  )  as Record<string, () => Promise<string>>;
   
   export const angloAmericanSeriesNames = [
     "A la croisée des mondes",
@@ -39,7 +39,7 @@ export const frenchSagasFiles = import.meta.glob(
     query: "?url",
     import: "default",
   }
-);
+)  as Record<string, () => Promise<string>>;
 
 export const frenchSeriesNames = [
   "La Quête d_Ewilan",
@@ -63,12 +63,12 @@ export const frenchImportedSeriesFiles = frenchSeriesNames.reduce(
 );
 
 export const frenchResearchFiles = import.meta.glob(
-  "../documents/Le récit/**/*.xlsx",
+  "../documents/Le récit/**/*.{xlsx,pdf}",
   {
     query: "?url",
     import: "default",
   }
-);
+)  as Record<string, () => Promise<string>>;
 
 export const frenchResearchNames = [
   "Le Monomythe - données brutes",
@@ -90,12 +90,12 @@ export const frenchImportedResearchFiles = frenchResearchNames.reduce(
 );
 
 export const frenchCharacterFiles = import.meta.glob(
-  "../documents/Les personnages/**/*.xlsx",
+  "../documents/Les personnages/**/*.{xlsx,pdf}",
   {
     query: "?url",
     import: "default",
   }
-);
+)  as Record<string, () => Promise<string>>;
 
 export const frenchCharacterNames = [
   "Différenciation du héros - données brutes",
@@ -116,12 +116,12 @@ export const frenchImportedCharacterFiles = frenchCharacterNames.reduce(
 );
 
 export const frenchLanguageFiles = import.meta.glob(
-  "../documents/Langue et langage/**/*.xlsx",
+  "../documents/Langue et langage/**/*.{xlsx,pdf}",
   {
     query: "?url",
     import: "default",
   }
-);
+)  as Record<string, () => Promise<string>>;
 
 export const frenchLanguageNames = [
   "Littérovision - données brutes",
@@ -140,6 +140,64 @@ export const frenchImportedLanguageFiles = frenchLanguageNames.reduce(
   },
   {} as Record<string, Record<string, () => Promise<string>>>
 );
+
+export const frenchExternalDataFiles = import.meta.glob(
+  "../documents/Données externes/**/*.{xlsx,png}",
+  {
+    query: "?url",
+    import: "default",
+  }
+) as Record<string, () => Promise<string>>;
+
+export const frenchChronologieDataNames = [
+  "Auteurs.png",
+  "Frise 1.png",
+  "Frise 2.png",
+  "Frise 3.png",
+];
+
+export const frenchEchantillonDataNames = [
+  "Chiffres de ventes - détails.xlsx",
+  "Chiffres de ventes.xlsx",
+  "Prix moyens - sagas.xlsx",
+  "Prix moyens - tomes.xlsx",
+  "Auteurs.xlsx",
+  "Catalogue - sagas anglo-américaines.xlsx",
+  "Catalogue - sagas françaises.xlsx",
+  "Genres de l_imaginaire.xlsx",
+  "Prix littéraires.xlsx",
+  "Référencement web.xlsx",
+  "Scores de popularité.xlsx",
+  "Titres annexes.xlsx",
+  "Traductions.xlsx",
+  "Transmedia.xlsx",
+];
+
+export const frenchImportedChronologieDataFiles = frenchChronologieDataNames.reduce(
+  (acc, dataName) => {
+    acc[dataName] = Object.fromEntries(
+      Object.entries(frenchExternalDataFiles).filter(([path]) =>
+        path.includes(dataName)
+      )
+    );
+    return acc;
+  },
+  {} as Record<string, Record<string, () => Promise<string>>>
+);
+
+export const frenchImportedEchantillonDataFiles = frenchEchantillonDataNames.reduce(
+  (acc, dataName) => {
+    acc[dataName] = Object.fromEntries(
+      Object.entries(frenchExternalDataFiles).filter(([path]) =>
+        path.includes(dataName)
+      )
+    );
+    return acc;
+  },
+  {} as Record<string, Record<string, () => Promise<string>>>
+);
+
+
 
 
 

@@ -17,6 +17,7 @@ import { Corpus } from "./pages/corpus";
 import { Recit } from "./pages/recit";
 import { Personnages } from "./pages/personnages";
 import { Langue } from "./pages/langue";
+import DonneesExternes from "./pages/donnees-externes";
 
 const router = createBrowserRouter([
   {
@@ -110,7 +111,7 @@ const router = createBrowserRouter([
         element: (
           <Container as="main" p={4}>
             <Box as="section" id="donnees" mb={4}>
-              <Text>Données externes content goes here...</Text>
+              <DonneesExternes />
             </Box>
           </Container>
         ),
