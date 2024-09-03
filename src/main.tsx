@@ -2,19 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { theme } from "@chakra-ui/pro-theme";
 import {
+  Box,
   ChakraProvider,
-  SimpleGrid,
+  Container,
   extendTheme,
   Text,
 } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./Layout";
 import "@fontsource-variable/playfair-display";
-import { Category, categories } from "./_data";
-import { CategoryCard } from "./components/CategoryCard";
 
-import { GoogleSheetCard } from "./components/GoogleSheetCard";
-import Hero from "./components/Hero";
+import { Layout } from "./Layout";
+import { Presentation } from "./pages/presentation";
+import { Corpus } from "./pages/corpus";
+import { Recit } from "./pages/recit";
+import { Personnages } from "./pages/personnages";
+import { Langue } from "./pages/langue";
 
 const router = createBrowserRouter([
   {
@@ -24,60 +26,95 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <>
-            <Hero />
-            <Text fontSize="3xl" fontWeight="extrabold" id="recherches">
-              Recherches
-            </Text>
-            <SimpleGrid
-              columns={{ base: 2, md: 3, lg: 4 }}
-              gap={{ base: "4", md: "6", lg: "8" }}
-              pb="8"
-            >
-              {categories.map((category) => (
-                <CategoryCard key={category.name} category={category} />
-              ))}
-            </SimpleGrid>
-          </>
+          <Container as="main" p={4}>
+            <Box as="section" id="presentation" mb={4}>
+              <Text mb={2}>
+                La littérature de l’imaginaire pour jeunes-adultes, en France,
+                témoigne de degrés de succès tranchés selon l’origine de ses
+                titres publiés : avec d’un côté des œuvres anglo-américaines
+                traduites à la popularité exponentielle ; et de l’autre, des
+                œuvres françaises dont les représentants les plus populaires le
+                sont pourtant bien en deçà de leurs contemporains. Et si
+                certains facteurs externes influant peuvent, en toute logique,
+                être déterminés, qu’en est-il de ceux qui, possiblement, se
+                jouent à l’intérieur même du texte ?
+              </Text>
+              <Text mb={2}>
+                Un projet de recherche a été mené pour trouver une réponse à
+                cette curiosité littéraire de l’extrême contemporanéité
+                constatée en territoire français en partant du cadrage théorique
+                jusqu’à l’étude de cas.
+              </Text>
+              <Text>
+                Voici d’ores et déjà certains résultats sous forme brute,
+                extraits du corpus d’étude selon une approche combinant théorie
+                littéraire et statistiques, qui permettent une lecture objective
+                des phénomènes externes et littéraires en action.
+              </Text>
+            </Box>
+          </Container>
         ),
       },
-      ...categories.map((category: Category) => ({
-        path: category.url,
+      {
+        path: "presentation",
         element: (
-          <SimpleGrid
-            key={category.name}
-            columns={{ base: 2, md: 3, lg: 4 }}
-            gap={{ base: "4", md: "6", lg: "8" }}
-            py="8"
-          >
-            {category.items?.map((item) => (
-              <CategoryCard key={item.name} category={item} />
-            ))}
-          </SimpleGrid>
+          <Container as="main" p={4}>
+            <Box as="section" id="presentation" mb={4}>
+              <Presentation />
+            </Box>
+          </Container>
         ),
-      })),
-      ...categories.flatMap(
-        (category) =>
-          category.items?.map((subCategory) => ({
-            path: `${category.url}/${subCategory.url}`,
-            element: (
-              <SimpleGrid
-                key={subCategory.name}
-                columns={{ base: 2, md: 3, lg: 4 }}
-                gap={{ base: "4", md: "6", lg: "8" }}
-                py="8"
-              >
-                {subCategory.items?.map((item) => (
-                  <GoogleSheetCard
-                    key={item.name}
-                    title={item.name}
-                    sheetUrl={item.url}
-                  />
-                ))}
-              </SimpleGrid>
-            ),
-          })) ?? []
-      ),
+      },
+      {
+        path: "/corpus",
+        element: (
+          <Container as="main" p={4}>
+            <Box as="section" id="corpus" mb={4}>
+              <Corpus />
+            </Box>
+          </Container>
+        ),
+      },
+      {
+        path: "/recit",
+        element: (
+          <Container as="main" p={4}>
+            <Box as="section" id="recit" mb={4}>
+              <Recit />
+            </Box>
+          </Container>
+        ),
+      },
+      {
+        path: "/personnages",
+        element: (
+          <Container as="main" p={4}>
+            <Box as="section" id="personnages" mb={4}>
+              <Personnages />
+            </Box>
+          </Container>
+        ),
+      },
+      {
+        path: "/langue",
+        element: (
+          <Container as="main" p={4}>
+            <Box as="section" id="langue" mb={4}>
+              <Langue />
+            </Box>
+          </Container>
+        ),
+      },
+      {
+        path: "/donnees",
+        element: (
+          <Container as="main" p={4}>
+            <Box as="section" id="donnees" mb={4}>
+              <Text>Données externes content goes here...</Text>
+            </Box>
+          </Container>
+        ),
+      },
     ],
   },
 ]);
@@ -97,8 +134,8 @@ const extendedConfig = {
   },
   fonts: {
     ...proTheme.fonts,
-    heading: "'Playfair Display', serif",
-    body: "sans-serif",
+    heading: "serif",
+    body: "serif",
   },
   components: {
     Button: {
