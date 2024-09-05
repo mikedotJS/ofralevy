@@ -81,25 +81,25 @@ export function App() {
       <Container as="main" p={4}>
         <Box as="section" id="presentation" mb={4}>
           <Text mb={2}>
-            La littérature de l’imaginaire pour jeunes-adultes, en France,
-            témoigne de degrés de succès tranchés selon l’origine de ses titres
-            publiés : avec d’un côté des œuvres anglo-américaines traduites à la
-            popularité exponentielle ; et de l’autre, des œuvres françaises dont
-            les représentants les plus populaires le sont pourtant bien en deçà
+            La littérature de l'imaginaire pour jeunes-adultes, en France,
+            témoigne de degrés de succès tranchés selon l'origine de ses titres
+            publiés : avec d'un côté des œuvres anglo-américaines traduites à la
+            popularité exponentielle; et de l'autre, des œuvres françaises dont
+            les représentants les plus populaires le sont pourtant bien en déca
             de leurs contemporains. Et si certains facteurs externes influant
-            peuvent, en toute logique, être déterminés, qu’en est-il de ceux
-            qui, possiblement, se jouent à l’intérieur même du texte ?
+            peurent, en toute logique, être déterminés, qu'en est-il de ceux
+            qui, possiblement, se jouent à l'intérieur même du texte ?
           </Text>
           <Text mb={2}>
             Un projet de recherche a été mené pour trouver une réponse à cette
-            curiosité littéraire de l’extrême contemporanéité constatée en
-            territoire français en partant du cadrage théorique jusqu’à l’étude
+            curiosité littéraire de l'extrême contemporanéité constatée en
+            territoire français en partant du cadrage théorique jusqu'à l'étude
             de cas.
           </Text>
           <Text>
-            Voici d’ores et déjà certains résultats sous forme brute, extraits
-            du corpus d’étude selon une approche combinant théorie littéraire et
-            statistiques, qui permettent une lecture objective des phénomènes
+            Voici d'ores et déjà certains résultats sous forme brute, extraits
+            du corpus d'étude selon une approche combinant théorie littéraire et
+            statistiques, qui permettent une lecture objectivable des phénomènes
             externes et littéraires en action.
           </Text>
         </Box>
