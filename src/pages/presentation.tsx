@@ -137,7 +137,7 @@ export function Presentation() {
 export function PresentationMaterielRecherche() {
   return (
     <Box>
-      <Heading as="h2" size="md">
+      <Heading as="h2" size="sm">
         Le matériel de recherche
       </Heading>
       <Text mb={2}>
@@ -231,7 +231,7 @@ export function PresentationMaterielRecherche() {
 export function MethodologyAndResults() {
   return (
     <Box>
-      <Heading as="h2" size="md">
+      <Heading as="h2" size="sm">
         La méthode et les résultats
       </Heading>
       <Text>
@@ -277,7 +277,7 @@ export function MethodologyAndResults() {
 export function ApproachesAndLevelsOfAnalysis() {
   return (
     <Box>
-      <Heading as="h2" size="md" mb={4}>
+      <Heading as="h2" size="sm">
         Approches et niveaux d'analyse
       </Heading>
       <Text mb={2}>
@@ -330,7 +330,7 @@ export function ApproachesAndLevelsOfAnalysis() {
 export function TypologiesAndModelsUsed() {
   return (
     <Box>
-      <Heading as="h2" size="md" mb={4}>
+      <Heading as="h2" size="sm">
         Typologies et modélisations utilisées
       </Heading>
       <Text as="em" mb={2}>
@@ -407,6 +407,9 @@ export function TypologiesAndModelsUsed() {
 export function Contact() {
   return (
     <Stack gap="1">
+      <Heading as="h2" size="sm">
+        Contact
+      </Heading>
       <Box>
         <Text>
           <strong>Ofra Lévy</strong> - Université Sorbonne Nouvelle Paris III{" "}

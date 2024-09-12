@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import { theme } from "@chakra-ui/pro-theme";
 import {
   Box,
+  Button,
   ChakraProvider,
   Container,
   extendTheme,
+  Icon,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -28,9 +30,16 @@ import {
   frenchImportedResearchFiles,
   frenchImportedSeriesFiles,
 } from "./pages/_data";
+import { FaDownload } from "react-icons/fa";
+import SeriesFiles from "./components/SeriesFiles";
+
+const extractFileName = (filePath: string) => {
+  const parts = filePath.split("/");
+  return parts[parts.length - 1];
+};
 
 const handleFileDownload = async (
-  e: React.MouseEvent<HTMLAnchorElement>,
+  e: React.MouseEvent<HTMLButtonElement>,
   filePromise: () => Promise<string>,
   fileName: string
 ) => {
@@ -53,7 +62,7 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" mb={4}>
+            <Stack as="section" mb={4}>
               <Text mb={2}>
                 La littérature de l'imaginaire pour jeunes-adultes, en France,
                 témoigne de degrés de succès tranchés selon l'origine de ses
@@ -77,7 +86,7 @@ const router = createBrowserRouter([
                 littéraire et statistiques, qui permettent une lecture
                 objectivable des phénomènes externes et littéraires en action.
               </Text>
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -101,9 +110,9 @@ const router = createBrowserRouter([
         path: "la-methode-et-les-resultats",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="la-methode-et-les-resultats" mb={4}>
+            <Stack as="section" id="la-methode-et-les-resultats" mb={4}>
               <MethodologyAndResults />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -111,9 +120,9 @@ const router = createBrowserRouter([
         path: "approches-et-niveaux-d-analyse",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="approches-et-niveaux-d-analyse" mb={4}>
+            <Stack as="section" id="approches-et-niveaux-d-analyse" mb={4}>
               <ApproachesAndLevelsOfAnalysis />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -121,9 +130,13 @@ const router = createBrowserRouter([
         path: "typologies-et-modelisations-utilisees",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="typologies-et-modelisations-utilisees" mb={4}>
+            <Stack
+              as="section"
+              id="typologies-et-modelisations-utilisees"
+              mb={4}
+            >
               <TypologiesAndModelsUsed />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -131,9 +144,9 @@ const router = createBrowserRouter([
         path: "contact",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="contact" mb={4}>
+            <Stack as="section" id="contact" mb={4}>
               <Contact />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -146,415 +159,223 @@ const router = createBrowserRouter([
       {
         path: "anglo-americaines/a-la-croisee-des-mondes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="a-la-croisee-des-mondes" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["A la croisée des mondes"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="a-la-croisee-des-mondes"
+            seriesName="A la Croisée des Mondes"
+            seriesFiles={
+              angloAmericanImportedSeriesFiles["A la croisée des mondes"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/divergente",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="divergente" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["Divergente"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="divergente"
+            seriesName="Divergente"
+            seriesFiles={angloAmericanImportedSeriesFiles["Divergente"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/eternel",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="eternel" mb={4}>
-              {Object.entries(angloAmericanImportedSeriesFiles["Eternel"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="eternel"
+            seriesName="Eternel"
+            seriesFiles={angloAmericanImportedSeriesFiles["Eternel"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/harry-potter",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="harry-potter" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["Harry Potter"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="harry-potter"
+            seriesName="Harry Potter"
+            seriesFiles={angloAmericanImportedSeriesFiles["Harry Potter"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/heros-de-l-olympe",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="heros-de-l-olympe" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["Héros de l_Olympe"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="heros-de-l-olympe"
+            seriesName="Héros de l'Olympe"
+            seriesFiles={angloAmericanImportedSeriesFiles["Héros de l_Olympe"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/hunger-games",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="hunger-games" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["Hunger Games"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="hunger-games"
+            seriesName="Hunger Games"
+            seriesFiles={angloAmericanImportedSeriesFiles["Hunger Games"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/l-epreuve",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="l-epreuve" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["L_Épreuve"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="l-epreuve"
+            seriesName="L'Épreuve"
+            seriesFiles={angloAmericanImportedSeriesFiles["L_Épreuve"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/l-heritage",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="l-heritage" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["L_Héritage"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="l-heritage"
+            seriesName="L'Héritage"
+            seriesFiles={angloAmericanImportedSeriesFiles["L_Héritage"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/la-maison-de-la-nuit",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="la-maison-de-la-nuit" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["La Maison de la Nuit"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="la-maison-de-la-nuit"
+            seriesName="La Maison de la Nuit"
+            seriesFiles={
+              angloAmericanImportedSeriesFiles["La Maison de la Nuit"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/percy-jackson",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="percy-jackson" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["Percy Jackson"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="percy-jackson"
+            seriesName="Percy Jackson"
+            seriesFiles={angloAmericanImportedSeriesFiles["Percy Jackson"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/the-mortal-instruments",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="the-mortal-instruments" mb={4}>
-              {Object.entries(
-                angloAmericanImportedSeriesFiles["The Mortal Instruments"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="the-mortal-instruments"
+            seriesName="The Mortal Instruments"
+            seriesFiles={
+              angloAmericanImportedSeriesFiles["The Mortal Instruments"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "anglo-americaines/twilight",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="twilight" mb={4}>
-              {Object.entries(angloAmericanImportedSeriesFiles["Twilight"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="twilight"
+            seriesName="Twilight"
+            seriesFiles={angloAmericanImportedSeriesFiles["Twilight"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/la-quete-d-ewilan",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="la-quete-d-ewilan" mb={4}>
-              {Object.entries(
-                frenchImportedSeriesFiles["La Quête d_Ewilan"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="la-quete-d-ewilan"
+            seriesName="La Quête d'Ewilan"
+            seriesFiles={frenchImportedSeriesFiles["La Quête d_Ewilan"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/les-mondes-d-ewilan",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="les-mondes-d-ewilan" mb={4}>
-              {Object.entries(
-                frenchImportedSeriesFiles["Les Mondes d_Ewilan"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="les-mondes-d-ewilan"
+            seriesName="Les Mondes d'Ewilan"
+            seriesFiles={frenchImportedSeriesFiles["Les Mondes d_Ewilan"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/meto",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="meto" mb={4}>
-              {Object.entries(frenchImportedSeriesFiles["Meto"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="meto"
+            seriesName="Meto"
+            seriesFiles={frenchImportedSeriesFiles["Meto"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/phobos",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="phobos" mb={4}>
-              {Object.entries(frenchImportedSeriesFiles["Phobos"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="phobos"
+            seriesName="Phobos"
+            seriesFiles={frenchImportedSeriesFiles["Phobos"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/phoenomen",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="phoenomen" mb={4}>
-              {Object.entries(frenchImportedSeriesFiles["Phoenomen"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="phoenomen"
+            seriesName="Phoenomen"
+            seriesFiles={frenchImportedSeriesFiles["Phoenomen"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "francaises/u4",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="u4" mb={4}>
-              {Object.entries(frenchImportedSeriesFiles["U4"]).map(
-                ([fileName, filePromise]) => (
-                  <Text key={fileName}>
-                    <a
-                      href="#"
-                      onClick={(e) =>
-                        handleFileDownload(e, filePromise, fileName)
-                      }
-                    >
-                      {fileName}
-                    </a>
-                  </Text>
-                )
-              )}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="u4"
+            seriesName="U4"
+            seriesFiles={frenchImportedSeriesFiles["U4"]}
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
     ],
@@ -566,99 +387,59 @@ const router = createBrowserRouter([
       {
         path: "le-monomythe-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="le-monomythe-donnees-brutes" mb={4}>
-              {Object.entries(
-                frenchImportedResearchFiles["Le Monomythe - données brutes"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="le-monomythe-donnees-brutes"
+            seriesName="Le Monomythe - Données Brutes"
+            seriesFiles={
+              frenchImportedResearchFiles["Le Monomythe - données brutes"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "le-rythme-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="le-rythme-donnees-brutes" mb={4}>
-              {Object.entries(
-                frenchImportedResearchFiles["Le rythme - données brutes"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="le-rythme-donnees-brutes"
+            seriesName="Le Rythme - Données Brutes"
+            seriesFiles={
+              frenchImportedResearchFiles["Le rythme - données brutes"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "le-schema-sequentiel-du-recit-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box
-              as="section"
-              id="le-schema-sequentiel-du-recit-donnees-brutes"
-              mb={4}
-            >
-              {Object.entries(
-                frenchImportedResearchFiles[
-                  "Le schéma sequentiel du récit - données brutes"
-                ]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="le-schema-sequentiel-du-recit-donnees-brutes"
+            seriesName="Le Schéma Séquentiel du Récit - Données Brutes"
+            seriesFiles={
+              frenchImportedResearchFiles[
+                "Le schéma sequentiel du récit - données brutes"
+              ]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "le-recit-infographie",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="le-recit-infographie" mb={4}>
-              {Object.entries(
-                frenchImportedResearchFiles["Le récit - infographie.pdf"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="le-recit-infographie"
+            seriesName="Le Récit - Infographie"
+            seriesFiles={
+              frenchImportedResearchFiles["Le récit - infographie.pdf"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
     ],
@@ -670,80 +451,47 @@ const router = createBrowserRouter([
       {
         path: "differenciation-du-heros-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box
-              as="section"
-              id="differenciation-du-heros-donnees-brutes"
-              mb={4}
-            >
-              {Object.entries(
-                frenchImportedCharacterFiles[
-                  "Différenciation du héros - données brutes"
-                ]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="differenciation-du-heros-donnees-brutes"
+            seriesName="Différenciation du Héros - Données Brutes"
+            seriesFiles={
+              frenchImportedCharacterFiles[
+                "Différenciation du héros - données brutes"
+              ]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "style-demographique-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="style-demographique-donnees-brutes" mb={4}>
-              {Object.entries(
-                frenchImportedCharacterFiles[
-                  "Style démographique - données brutes"
-                ]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="style-demographique-donnees-brutes"
+            seriesName="Style Démographique - Données Brutes"
+            seriesFiles={
+              frenchImportedCharacterFiles[
+                "Style démographique - données brutes"
+              ]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "les-personnages-infographie",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="les-personnages-infographie" mb={4}>
-              {Object.entries(
-                frenchImportedCharacterFiles[
-                  "Les personnages - infographie.pdf"
-                ]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="les-personnages-infographie"
+            seriesName="Les Personnages - Infographie"
+            seriesFiles={
+              frenchImportedCharacterFiles["Les personnages - infographie.pdf"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
     ],
@@ -755,72 +503,43 @@ const router = createBrowserRouter([
       {
         path: "litterovision-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="litterovision-donnees-brutes" mb={4}>
-              {Object.entries(
-                frenchImportedLanguageFiles["Littérovision - données brutes"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="litterovision-donnees-brutes"
+            seriesName="Littérovision - Données Brutes"
+            seriesFiles={
+              frenchImportedLanguageFiles["Littérovision - données brutes"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "page-turner-donnees-brutes",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="page-turner-donnees-brutes" mb={4}>
-              {Object.entries(
-                frenchImportedLanguageFiles["Page Turner - données brutes"]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="page-turner-donnees-brutes"
+            seriesName="Page Turner - Données Brutes"
+            seriesFiles={
+              frenchImportedLanguageFiles["Page Turner - données brutes"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
       {
         path: "langue-et-langage-infographie",
         element: (
-          <Container as="main" p={4}>
-            <Box as="section" id="langue-et-langage-infographie" mb={4}>
-              {Object.entries(
-                frenchImportedLanguageFiles[
-                  "Langue et langage - infographie.pdf"
-                ]
-              ).map(([fileName, filePromise]) => (
-                <Text key={fileName}>
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      handleFileDownload(e, filePromise, fileName)
-                    }
-                  >
-                    {fileName}
-                  </a>
-                </Text>
-              ))}
-            </Box>
-          </Container>
+          <SeriesFiles
+            seriesId="langue-et-langage-infographie"
+            seriesName="Langue et Langage - Infographie"
+            seriesFiles={
+              frenchImportedLanguageFiles["Langue et langage - infographie.pdf"]
+            }
+            handleFileDownload={handleFileDownload}
+            extractFileName={extractFileName}
+          />
         ),
       },
     ],
@@ -833,9 +552,12 @@ const router = createBrowserRouter([
         path: "chronologie",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="chronologie" mb={4}>
+            <Stack as="section" id="chronologie" mb={4}>
+              <Text as="h2" fontSize="xl" mb={4}>
+                Chronologie
+              </Text>
               <DonneesExternes />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
@@ -843,9 +565,12 @@ const router = createBrowserRouter([
         path: "echantillon",
         element: (
           <Container as="main" p={4}>
-            <Box as="section" id="echantillon" mb={4}>
+            <Stack as="section" id="echantillon" mb={4}>
+              <Text as="h2" fontSize="xl" mb={4}>
+                Échantillon
+              </Text>
               <DonneesExternes />
-            </Box>
+            </Stack>
           </Container>
         ),
       },
