@@ -50,6 +50,8 @@ export const SeriesItem: React.FC<SeriesProps> = ({
     );
   }
 
+  console.log({ seriesFiles }, "OKDOAKDOAZ");
+
   return (
     <AccordionItem key={seriesName}>
       <h2>
